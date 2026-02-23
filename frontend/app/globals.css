@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #060e10;
+  --color-surface: #0d1f24;
+  --color-surface-2: #132a31;
+  --color-border: #1a3a42;
+  --color-border-accent: #00e8c8;
+  --color-text: #e4f4f6;
+  --color-muted: #7a9fa8;
+  --color-accent: #00e8c8;
+  --color-accent-bright: #00f5d8;
+  --color-accent-dim: rgba(0, 232, 200, 0.12);
+  --color-accent-glow: rgba(0, 232, 200, 0.35);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+
+  --radius-card: 12px;
+  --shadow-card: 0 0 0 1px var(--color-border), 0 4px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 24px var(--color-accent-glow), 0 0 48px rgba(0, 232, 200, 0.1);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-accent {
+    color: var(--color-accent);
+  }
+
+  .text-muted {
+    color: var(--color-muted);
+  }
+
+  .bg-surface {
+    background-color: var(--color-surface);
+  }
+
+  .bg-surface-2 {
+    background-color: var(--color-surface-2);
+  }
+
+  .border-glow {
+    border-color: var(--color-border-accent);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    border-color: var(--color-border-accent);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Terminal grid texture */
+  .grid-texture {
+    background-image:
+      linear-gradient(rgba(0, 232, 200, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 232, 200, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Laser scan line effect */
+  .scanline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px var(--color-accent-glow), 0 0 40px rgba(0, 232, 200, 0.2);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-family: var(--font-sans);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent-bright);
+    box-shadow: 0 0 20px var(--color-accent-glow);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-family: var(--font-sans);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid;
+  }
+
+  .pill-accent {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-accent-dim);
+  }
+
+  .pill-muted {
+    color: var(--color-muted);
+    border-color: var(--color-border);
+    background: rgba(255,255,255,0.03);
+  }
+}
