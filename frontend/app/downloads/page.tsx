@@ -133,6 +133,7 @@ export default async function DownloadsPage() {
                             >
                                 {/* Table header */}
                                 <div
+                                    className="downloads-table-header"
                                     style={{
                                         display: "grid",
                                         gridTemplateColumns: "auto 1fr 100px 120px 140px",
@@ -172,7 +173,7 @@ export default async function DownloadsPage() {
                                             alignItems: "center",
                                             transition: "background 0.15s",
                                         }}
-                                        className="hover:bg-surface-2"
+                                        className="downloads-table-row hover:bg-surface-2"
                                     >
                                         {/* Platform */}
                                         <span style={{ fontSize: "1.1rem" }}>
@@ -192,19 +193,19 @@ export default async function DownloadsPage() {
                                         </span>
 
                                         {/* Size */}
-                                        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-muted)" }}>
+                                        <span className="downloads-table-size" style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-muted)" }}>
                                             {formatBytes(asset.size)}
                                         </span>
 
                                         {/* Downloads */}
-                                        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-muted)" }}>
+                                        <span className="downloads-table-count" style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-muted)" }}>
                                             {asset.download_count.toLocaleString()} ↓
                                         </span>
 
                                         {/* Action */}
                                         <a
                                             href={asset.browser_download_url}
-                                            className="btn-primary"
+                                            className="downloads-table-action btn-primary"
                                             style={{ justifyContent: "center", padding: "7px 14px", fontSize: "0.78rem" }}
                                         >
                                             <Download size={13} />

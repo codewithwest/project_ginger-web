@@ -74,6 +74,7 @@ export default async function ProductPage({ params }: Props) {
 
             {/* Product header */}
             <div
+                className="product-header-grid"
                 style={{
                     display: "grid",
                     gridTemplateColumns: "1fr auto",
@@ -81,7 +82,6 @@ export default async function ProductPage({ params }: Props) {
                     alignItems: "flex-start",
                     marginBottom: "64px",
                 }}
-                className="flex flex-col md:grid"
             >
                 <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "16px" }}>
@@ -162,7 +162,7 @@ export default async function ProductPage({ params }: Props) {
                 </div>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "48px", alignItems: "flex-start" }} className="flex flex-col md:grid">
+            <div className="product-page-grid" style={{ display: "grid", gridTemplateColumns: "1fr 340px", gap: "48px", alignItems: "flex-start" }}>
                 {/* Main content */}
                 <div style={{ display: "flex", flexDirection: "column", gap: "48px" }}>
                     {/* Features */}
@@ -299,7 +299,7 @@ export default async function ProductPage({ params }: Props) {
                 </div>
 
                 {/* Sidebar: downloads */}
-                <div style={{ position: "sticky", top: "84px" }}>
+                <div className="product-page-sidebar" style={{ position: "sticky", top: "84px" }}>
                     <h2
                         style={{
                             fontFamily: "var(--font-mono)",

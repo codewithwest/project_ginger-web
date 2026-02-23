@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ginger Web — GingerOS Showcase Site
 
-## Getting Started
+The public-facing website for the GingerOS ecosystem. A Next.js 15 app that showcases GingerOS, Ginger Media Handler, and Ginger Alarm — with live release data pulled directly from the GitHub Releases API.
 
-First, run the development server:
+**Live at:** TBD (deploy to Vercel)
+
+---
+
+## Stack
+
+| | |
+|-|-|
+| Framework | Next.js 15 (App Router, React Server Components) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS v4 |
+| 3D / FX | Three.js, CSS 3D Transforms |
+| Icons | Lucide React |
+| Data | GitHub Releases API (ISR-cached, 1hr) |
+| Deploy | Vercel |
+
+No database. No backend. Release data comes from GitHub automatically.
+
+---
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Node 24 required (use nvm)
+nvm use 24
+
+cd frontend
+cp .env.local.example .env.local   # optional: add GITHUB_TOKEN
+npm install
+npm run dev                         # → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md) for env variable details.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+frontend/
+├── app/
+│   ├── layout.tsx              ← Root layout (Navbar + Footer)
+│   ├── page.tsx                ← Landing page (Hero + Carousel)
+│   ├── downloads/page.tsx      ← All downloads table
+│   └── products/[slug]/page.tsx← Per-product showcase
+├── components/
+│   ├── Hero.tsx                ← Typewriter + Matrix rain hero
+│   ├── MatrixRain.tsx          ← Canvas-based matrix rain animation
+│   ├── Navbar.tsx              ← Fixed glassmorphism nav
+│   ├── Footer.tsx              ← Footer with links
+│   ├── ProductCard.tsx         ← Single product info card
+│   └── ProductCarousel3D.tsx   ← CSS 3D perspective carousel
+├── lib/
+│   └── github.ts               ← GitHub Releases API client + PRODUCTS config
+└── docs/                       ← Extended documentation
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Key Files
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### `lib/github.ts`
+Central config. The `PRODUCTS` array defines all showcased products with their GitHub repo paths. Adding a new product is a one-line change here.
 
-## Deploy on Vercel
+### `components/MatrixRain.tsx`
+Client-side canvas animation loaded with `next/dynamic` (SSR-disabled). Renders binary, hex, and katakana characters in laser teal-green.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### `components/ProductCarousel3D.tsx`
+Interactive 3D carousel using CSS `perspective` and `rotateY`. No Three.js dependency needed — pure CSS 3D transforms for maximum performance and SSR compatibility.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Adding a New Product
+
+See [`.agent/skills/adding-a-product/SKILL.md`](.agent/skills/adding-a-product/SKILL.md).
+
+## Environment Variables
+
+See [`docs/ENVIRONMENT.md`](docs/ENVIRONMENT.md).
+
+## Architecture
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+---
+
+## License
+
+MIT — Part of the GingerOS ecosystem.

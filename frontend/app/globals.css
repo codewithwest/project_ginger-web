@@ -114,13 +114,11 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 0, 0, 0.08) 2px,
-      rgba(0, 0, 0, 0.08) 4px
-    );
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.08) 2px,
+        rgba(0, 0, 0, 0.08) 4px);
     pointer-events: none;
     border-radius: inherit;
   }
@@ -198,6 +196,99 @@
   .pill-muted {
     color: var(--color-muted);
     border-color: var(--color-border);
-    background: rgba(255,255,255,0.03);
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .nav-desktop {
+    display: none !important;
+  }
+
+  .nav-mobile-btn {
+    display: flex !important;
+  }
+
+  .nav-download-btn {
+    display: none !important;
+  }
+
+  /* Hero */
+  .hero-terminal-hint {
+    display: none;
+  }
+
+  .hero-stats {
+    gap: 28px !important;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  .footer-bottom {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+
+  /* Downloads table */
+  .downloads-table-header {
+    display: none !important;
+  }
+
+  .downloads-table-row {
+    grid-template-columns: auto 1fr !important;
+    grid-template-rows: auto auto auto !important;
+    gap: 8px !important;
+    padding: 16px !important;
+  }
+
+  .downloads-table-size {
+    display: none !important;
+  }
+
+  .downloads-table-count {
+    display: none !important;
+  }
+
+  .downloads-table-action {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Product page */
+  .product-page-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .product-page-sidebar {
+    position: relative !important;
+    top: 0 !important;
+  }
+
+  .product-header-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Pillars */
+  .pillars-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* CTA */
+  .cta-banner {
+    padding: 40px 24px !important;
+  }
+
+  /* General section padding */
+  section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
 }
