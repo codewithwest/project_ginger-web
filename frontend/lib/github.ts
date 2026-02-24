@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 export type GitHubAsset = {
   id: number;
   name: string;
@@ -116,19 +119,68 @@ async function fetchRelease(repo: string): Promise<GitHubRelease | null> {
     headers["Authorization"] = `Bearer ${process.env.GITHUB_TOKEN}`;
   }
 
+  let releaseData: GitHubRelease | null = null;
+
   try {
     const res = await fetch(`${GITHUB_API}/repos/${repo}/releases/latest`, {
       headers,
-      next: { revalidate: 3600 }, // ISR: revalidate every hour
+      next: { revalidate: 3600 },
     });
 
-    if (res.status === 404) return null; // No releases yet
-    if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
-
-    return res.json();
+    if (res.ok) {
+      releaseData = await res.json();
+    }
   } catch {
-    return null;
+    // silently fail and fallback to local if available
   }
+
+  // Fallback to local release notes if github body is missing (e.g. rate limit or no internet)
+  // or if we just want to override with our local docs/release folder files
+  if (repo === "codewithwest/project_ginger-web") {
+    try {
+      // Ginger Web specific fallback
+      const localPath = path.join(process.cwd(), "docs/release/RELEASE_NOTES_v1.0.0.md");
+      if (fs.existsSync(localPath)) {
+        const body = fs.readFileSync(localPath, "utf-8");
+        if (!releaseData) {
+          releaseData = {
+            id: 1,
+            tag_name: "v1.0.0",
+            name: "Ginger Web Initial Release",
+            body: body,
+            published_at: new Date().toISOString(),
+            html_url: "",
+            assets: []
+          };
+        } else {
+          releaseData.body = body;
+        }
+      }
+    } catch (e) { }
+  }
+
+  if (repo === "codewithwest/project_ginger-media-handler") {
+    try {
+      // Assuming Media Handler always has the nice v1.0.7 markdown locally inside its own repo
+      // but since we are in the web repo, we don't have direct access unless we copy them.
+      // For now, check if the fetched github release has no body (rare, but rate limit clears it)
+      if (releaseData && !releaseData.body) {
+        releaseData.body = "Failed to load release notes due to GitHub API rate limits. Please try again later or provide a GITHUB_TOKEN.";
+      } else if (!releaseData) {
+        releaseData = {
+          id: 2,
+          tag_name: "v1.0.7",
+          name: "Latest Release",
+          body: "Failed to load release notes from GitHub due to rate limits.",
+          published_at: new Date().toISOString(),
+          html_url: "",
+          assets: []
+        }
+      }
+    } catch (e) { }
+  }
+
+  return releaseData;
 }
 
 export async function getAllReleases(): Promise<ReleaseData[]> {
