@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { Download, ArrowRight, GitBranch, Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Product, GitHubRelease } from "@/lib/github";
@@ -21,7 +21,7 @@ const PLATFORM_LABELS: Record<string, string> = {
 };
 
 function formatDate(iso: string) {
-    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 }
 function formatBytes(bytes: number): string {
     if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
@@ -159,8 +159,17 @@ function Card({ product, release, style, onClick, className, active }: CardData 
 
 export default function ProductCarousel3D({ items }: Props) {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [winWidth, setWinWidth] = useState(1200);
     const total = items.length;
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Track window width for responsive 3D transforms
+    useEffect(() => {
+        setWinWidth(window.innerWidth);
+        const handleResize = () => setWinWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const prev = useCallback(() => setActiveIndex((i) => (i - 1 + total) % total), [total]);
     const next = useCallback(() => setActiveIndex((i) => (i + 1) % total), [total]);
@@ -185,18 +194,21 @@ export default function ProductCarousel3D({ items }: Props) {
                 marginTop: "-210px",
             };
         }
+
         if (absOff === 1) {
             // Side cards
+            // On very small screens, 140px might push cards too far out
             return {
                 transform: `translateX(-50%) translateY(30px) translateZ(-120px) rotateY(${sign * -28}deg) scale(0.88)`,
                 opacity: 0.55,
                 zIndex: 5,
                 filter: "brightness(0.7)",
-                left: `calc(50% + ${sign * 140}px)`,
+                left: `calc(50% + ${sign * Math.min(140, winWidth * 0.35)}px)`,
                 top: "50%",
                 marginTop: "-190px",
             };
         }
+
         // Hidden cards
         return {
             transform: `translateX(-50%) translateY(60px) translateZ(-240px) scale(0.7)`,
@@ -210,7 +222,7 @@ export default function ProductCarousel3D({ items }: Props) {
     }
 
     return (
-        <div style={{ width: "100%", padding: "0 24px", maxWidth: "1200px", margin: "0 auto" }}>
+        <div style={{ width: "100%", padding: "0 24px", maxWidth: "1200px", margin: "0 auto", overflowX: "hidden" }}>
             {/* Header */}
             <div style={{ textAlign: "center", marginBottom: "48px" }}>
                 <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-accent)", textTransform: "uppercase", letterSpacing: "0.12em", fontWeight: 600 }}>
@@ -236,7 +248,7 @@ export default function ProductCarousel3D({ items }: Props) {
                 }}
             >
                 {/* Ground reflection */}
-                <div style={{
+                <div className="carousel-ground" style={{
                     position: "absolute",
                     bottom: 0,
                     left: "10%",
@@ -249,7 +261,7 @@ export default function ProductCarousel3D({ items }: Props) {
                 }} />
 
                 {/* Dot indicator glow ring */}
-                <div style={{
+                <div className="carousel-glow-ring" style={{
                     position: "absolute",
                     top: "50%",
                     left: "50%",
@@ -330,7 +342,7 @@ export default function ProductCarousel3D({ items }: Props) {
             </div>
 
             {/* Dot nav */}
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "32px" }}>
+            <div className="carousel-dots" style={{ display: "flex", justifyContent: "center", gap: "10px", marginTop: "32px" }}>
                 {items.map((item, i) => (
                     <button
                         key={item.product.id}
