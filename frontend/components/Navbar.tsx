@@ -6,6 +6,7 @@ import { Menu, X, Github, Terminal } from "lucide-react";
 
 const NAV_LINKS = [
     { href: "/", label: "Home" },
+    { href: "/releases", label: "Releases" },
     { href: "/downloads", label: "Downloads" },
 ];
 

@@ -25,6 +25,7 @@ const FOOTER_LINKS = [
         title: "Community",
         links: [
             { label: "GitHub", href: "https://github.com/codewithwest", external: true },
+            { label: "Release Notes", href: "/releases" },
         ],
     },
 ];
