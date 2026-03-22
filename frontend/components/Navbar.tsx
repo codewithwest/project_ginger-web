@@ -9,6 +9,7 @@ const NAV_LINKS = [
     { href: "/products/ginger-os", label: "GingerOS" },
     { href: "/products/media-handler", label: "Media Handler" },
     { href: "/products/alarm", label: "Alarm" },
+    { href: "/products/finance", label: "Finance" },
     { href: "/downloads", label: "Downloads" },
 ];
 

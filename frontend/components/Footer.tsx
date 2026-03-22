@@ -8,6 +8,7 @@ const FOOTER_LINKS = [
             { label: "GingerOS", href: "/products/ginger-os" },
             { label: "Media Handler", href: "/products/media-handler" },
             { label: "Alarm", href: "/products/alarm" },
+            { label: "Finance", href: "/products/finance" },
             { label: "Downloads", href: "/downloads" },
         ],
     },
@@ -17,6 +18,7 @@ const FOOTER_LINKS = [
             { label: "GingerOS", href: "https://github.com/codewithwest/ginger_os", external: true },
             { label: "Media Handler", href: "https://github.com/codewithwest/project_ginger-media-handler", external: true },
             { label: "Alarm", href: "https://github.com/codewithwest/project_ginger-alarm", external: true },
+            { label: "Finance", href: "https://github.com/codewithwest/project_ginger-finance", external: true },
         ],
     },
     {

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Downloads — GingerOS",
-    description: "Download the latest versions of GingerOS, Ginger Media Handler, and Ginger Alarm for Linux, Windows, and macOS.",
+    description: "Download the latest versions of GingerOS, Ginger Media Handler, Ginger Alarm, and Ginger Finance for Linux, Windows, and macOS.",
 };
 
 const PLATFORM_ICONS: Record<string, string> = {
@@ -45,7 +45,7 @@ export default async function DownloadsPage() {
                         fontWeight: 600,
                     }}
                 >
-          // downloads
+          {/* downloads */}
                 </span>
                 <h1
                     style={{
@@ -58,6 +58,7 @@ export default async function DownloadsPage() {
                 >
                     Download GingerOS & Apps
                 </h1>
+                {/* open source */}
                 <p style={{ color: "var(--color-muted)", marginTop: "12px", fontSize: "1rem", maxWidth: "560px" }}>
                     All releases are pulled live from GitHub. Click a file to download directly from GitHub&apos;s CDN.
                 </p>

@@ -21,7 +21,7 @@ export type GitHubRelease = {
   assets: GitHubAsset[];
 };
 
-export type ProductId = "media-handler" | "alarm" | "ginger-os";
+export type ProductId = "media-handler" | "alarm" | "ginger-os" | "finance";
 
 export type Product = {
   id: ProductId;
@@ -91,6 +91,24 @@ export const PRODUCTS: Product[] = [
       "World clock with timezone support",
       "3D animated interface (Three.js)",
       "Persistent SQLite storage",
+    ],
+    platforms: ["linux", "windows", "macos"],
+  },
+  {
+    id: "finance",
+    name: "Ginger Finance",
+    tagline: "Decentralized financial tracking & portfolio management.",
+    description:
+      "A privacy-first, open-source financial dashboard that connects to your accounts without sharing your data. Track crypto, stocks, and bank accounts in one gorgeous 3D interface.",
+    icon: "💹",
+    repo: "codewithwest/project_ginger-finance",
+    slug: "finance",
+    features: [
+      "Real-time portfolio tracking",
+      "Secure, local-only data storage",
+      "Support for 2000+ cryptocurrencies",
+      "Custom budget management tools",
+      "Beautiful 3D data visualizations",
     ],
     platforms: ["linux", "windows", "macos"],
   },

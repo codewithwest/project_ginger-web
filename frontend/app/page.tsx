@@ -7,7 +7,7 @@ import Hero from "@/components/Hero";
 const PILLARS = [
   { icon: <Cpu size={20} />, title: "Built from Source", body: "Every binary compiled from scratch. No black boxes. Full transparency from kernel to userland." },
   { icon: <Shield size={20} />, title: "Security First", body: "Sandboxed apps, context isolation, type-safe IPC, and zero-trust defaults across the ecosystem." },
-  { icon: <Zap size={20} />, title: "Open Ecosystem", body: "GingerOS, Media Handler, and Alarm are all MIT licensed, actively maintained, and designed to work together." },
+  { icon: <Zap size={20} />, title: "Open Ecosystem", body: "GingerOS, Media Handler, Alarm, and Finance are all MIT licensed, actively maintained, and designed to work together." },
 ];
 
 export default async function HomePage() {
