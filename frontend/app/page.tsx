@@ -1,4 +1,4 @@
-import ProductCarousel3D from "@/components/ProductCarousel3D";
+import JarvisWheel from "@/components/JarvisWheel";
 import { getAllReleases } from "@/lib/github";
 import Link from "next/link";
 import { ArrowRight, Cpu, Shield, Zap } from "lucide-react";
@@ -17,10 +17,10 @@ export default async function HomePage() {
     <>
       <Hero />
 
-      {/* 3D Product Carousel */}
-      <section id="products" style={{ padding: "80px 0 100px" }}>
-        <ProductCarousel3D items={releases} />
-        <div style={{ textAlign: "center", marginTop: "48px" }}>
+      {/* Jarvis Wheel Product Presentation */}
+      <section id="products" style={{ padding: "40px 0 60px" }}>
+        <JarvisWheel items={releases} />
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
           <Link href="/downloads" className="btn-ghost">
             View all downloads &amp; versions <ArrowRight size={16} />
           </Link>
